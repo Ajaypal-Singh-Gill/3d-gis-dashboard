@@ -12,6 +12,12 @@ A web-based interactive 3D-GIS dashboard that visualizes GeoJSON, XYZ, and PCD d
 npm install
 ```
 
+## 📦 Run
+
+```sh
+npm run dev
+```
+
 ## 📦 Build
 
 ```sh
