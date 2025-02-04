@@ -1,42 +1,11 @@
-import { useState, useEffect, useMemo } from "react";
-import {
-  FaUpload,
-  FaTimes,
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Polyline,
-  Polygon,
-  LayersControl,
-  GeoJSON,
-} from "react-leaflet";
+import { useState, useEffect } from "react";
+import { FaUpload, FaTimes } from "react-icons/fa";
 import "leaflet/dist/leaflet.css";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, GizmoHelper, GizmoViewport } from "@react-three/drei";
-import * as THREE from "three";
-import L from "leaflet";
-import MarkerClusterGroup from "react-leaflet-cluster";
 import "./App.css";
 import { PCDLoader } from "three/examples/jsm/loaders/PCDLoader.js";
-// // import geojsonhint from "@mapbox/geojsonhint";
-// import GISViewerNew from "./Components/GISViewerNew";
-// import GeoJSONMap from "./Components/GeoJSONMap";
 import GISViewer from "./Components/GISViewer";
 import ThreeDViewer from "./Components/3dViewer";
 import { min, max } from "d3-array";
-
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
-});
 
 function App() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);

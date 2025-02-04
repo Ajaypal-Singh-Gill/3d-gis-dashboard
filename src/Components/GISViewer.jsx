@@ -42,7 +42,7 @@ const GISViewer = ({ geoJsonData }) => {
   // A ref to store the interval ID so we can clear it when needed
   const intervalRef = useRef(null);
 
-  // 1) Build and sort `timeSteps`
+  // Build and sort `timeSteps`
   useEffect(() => {
     if (!geoJsonData || !geoJsonData.features) return;
 
@@ -63,7 +63,7 @@ const GISViewer = ({ geoJsonData }) => {
     setIsPlaying(false);
   }, [geoJsonData]);
 
-  // 2) Handle the "Play" animation (increment currentIndex over time)
+  // Handle the "Play" animation (increment currentIndex over time)
   useEffect(() => {
     if (isPlaying) {
       intervalRef.current = setInterval(() => {
@@ -92,10 +92,10 @@ const GISViewer = ({ geoJsonData }) => {
     };
   }, [isPlaying, timeSteps]);
 
-  // 3) The current "selectedTime" based on the timeSteps and currentIndex
+  // The current "selectedTime" based on the timeSteps and currentIndex
   const selectedTime = timeSteps[currentIndex];
 
-  // 4) Apply your final filter for time + tags
+  // Apply your final filter for time + tags
   const finalFilteredFeatures = (filteredData.features || []).filter(
     (feature) => {
       const props = feature.properties || {};
@@ -116,7 +116,7 @@ const GISViewer = ({ geoJsonData }) => {
     }
   );
 
-  // 5) We'll do a "single track" approach for all *Point* features with timestamps:
+  //  We'll do a "single track" approach for all *Point* features with timestamps:
   //    a) Sort them by timestamp
   //    b) The polyline is all those points
   //    c) The marker is at the last point
@@ -176,9 +176,7 @@ const GISViewer = ({ geoJsonData }) => {
     );
   }
 
-  // 6) For everything else (polygons, lines, static points, etc.) we still use `renderFeature`.
-  //    We'll remove "trackPoints" from this rendering so we don't duplicate them as multiple markers.
-  //    If you *do* want to see them all, omit this step:
+  // For everything else (polygons, lines, static points, etc.) we still use `renderFeature`.
   const nonTrackFeatures = finalFilteredFeatures.filter((f) => {
     // If it's a point with a timestamp, exclude it from the normal rendering
     if (f.geometry?.type === "Point" && f.properties?.timestamp) {
@@ -189,7 +187,7 @@ const GISViewer = ({ geoJsonData }) => {
 
   const finalDataForRender = { ...filteredData, features: nonTrackFeatures };
 
-  // 7) Normal geometry rendering function
+  // Normal geometry rendering function
   const renderFeature = (feature, index) => {
     if (!feature.geometry) return null;
     const { type, coordinates } = feature.geometry;
@@ -570,7 +568,7 @@ const GISViewer = ({ geoJsonData }) => {
           </LayersControl.BaseLayer>
 
           <LayersControl.Overlay checked name="Features">
-            {/* Optionally wrap in MarkerClusterGroup if you prefer clustering */}
+            {/* Optionally wrap in MarkerClusterGroup for clustering */}
             {/* <MarkerClusterGroup> */}
             {finalDataForRender?.features?.map(renderFeature)}
             {/* </MarkerClusterGroup> */}
